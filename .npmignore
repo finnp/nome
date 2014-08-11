@@ -1,0 +1,8 @@
+node_modules
+bin
+src
+test
+nome.sublime-*
+.travis.yml
+.gitignore
+bower.json
