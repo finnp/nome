@@ -2,7 +2,7 @@ Lill = require 'lill'
 fast = require 'fast.js'
 isFunction = require 'isfunction'
 
-{Symbol} = require 'es6-symbol'
+Symbol = require 'es6-symbol'
 bNotify = Symbol 'method used to attach notification function'
 bDenotify = Symbol 'method used to detach previously attached function'
 

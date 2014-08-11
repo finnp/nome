@@ -1,7 +1,7 @@
 {
   "name": "nome",
   "description": "Lightweight module to notify when method is called.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "keywords": [
     "notify",
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "es6-symbol": "^0.1.0",
-    "lill": "0.0.3",
-    "isfunction": "0.0.6",
-    "fast.js": "0.0.3"
+    "lill": "^0.0.3",
+    "isfunction": "^0.0.6",
+    "fast.js": "^0.0.3"
   }
 }
