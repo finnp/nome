@@ -1,7 +1,7 @@
 {
   "name": "nome",
   "description": "Lightweight module to notify when method is called.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "authors": [
     "FredyC <fredy.c@seznam.cz>"
   ],
