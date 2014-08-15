@@ -1,3 +1,5 @@
+'use strict'
+
 Lill = require 'lill'
 fast = require 'fast.js'
 isFunction = require 'isfunction'
