@@ -4,36 +4,38 @@ Lill = require 'lill'
 fast = require 'fast.js'
 isFunction = require 'isfunction'
 
-Symbol = require 'es6-symbol'
-bNotify = Symbol 'method used to attach notification function'
-bDenotify = Symbol 'method used to detach previously attached function'
-
-NoMe = (method) ->
-	method = isFunction(method) and method
+NoMe = (fn) ->
+	fn = isFunction(fn) and fn
 	nome = ->
 		self = this
 		args = arguments
-		method and fast.apply method, this, args
-		Lill.each nome, ({cb, ctx}) -> fast.apply cb, (ctx or self), args
-	
+
+		result = fn and fast.apply fn, this, args
+
+		Lill.each nome, NoMe$loop = ({cb, ctx}) ->
+			fast.apply cb, (ctx or self), args
+			return
+
+		return result
+
+	nome.notify = NoMe$notify
+	nome.denotify = NoMe$denotify
+
 	Lill.attach nome
-	
-	nome[ bNotify ] = (cb, ctx) ->
-		unless isFunction cb
-			throw new TypeError 'expected function for notification'
-		Lill.add nome, item = {cb, ctx}
-		return item
-	
-	nome[ bDenotify ] = (item) ->
-		Lill.remove nome, item
-		return 
-	
+
 	return Object.freeze nome
 
-NoMe.is = (value) ->
-	return !!(isFunction(value) and value[ bNotify ] and value[ bDenotify ])
+NoMe$notify = (cb, ctx) ->
+	unless isFunction cb
+		throw new TypeError 'expected function for notification'
+	Lill.add this, item = {cb, ctx}
+	return item
 
-NoMe.bNotify = bNotify
-NoMe.bDenotify = bDenotify
+NoMe$denotify = (item) ->
+	Lill.remove this, item
+	return
+
+NoMe.is = (value) ->
+	return Boolean(isFunction(value) and value.notify is NoMe$notify)
 
 module.exports = Object.freeze NoMe

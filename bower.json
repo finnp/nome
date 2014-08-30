@@ -1,7 +1,7 @@
 {
   "name": "nome",
   "description": "Lightweight module to notify when method is called.",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "authors": [
     "FredyC <fredy.c@seznam.cz>"
   ],
@@ -15,8 +15,6 @@
     "notify",
     "notifier",
     "method",
-    "es6",
-    "symbol",
     "lightweight"
   ],
   "license": "MIT",
@@ -28,7 +26,6 @@
     "src",
     ".npmignore",
     ".travis.yml",
-    "nome.*",
     "package.json",
     ".gitignore"
   ]

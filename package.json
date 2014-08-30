@@ -1,15 +1,13 @@
 {
   "name": "nome",
   "description": "Lightweight module to notify when method is called.",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "license": "MIT",
   "keywords": [
     "notify",
     "notifier",
     "signal",
     "method",
-    "es6",
-    "symbol",
     "lightweight"
   ],
   "author": "FredyC <fredy.c@seznam.cz>",
@@ -36,8 +34,7 @@
     "browserify": "^5.9.1"
   },
   "dependencies": {
-    "es6-symbol": "^0.1.0",
-    "lill": "^0.2.0",
+    "lill": "^0.3.2",
     "isfunction": "^0.0.6",
     "fast.js": "^0.0.3"
   }
