@@ -6,6 +6,8 @@ var uglifyjs   = require('uglify-js');
 var browserify = require('browserify');
 var banner     = fs.readFileSync(__dirname + '/../LICENSE').toString()
 var src        = __dirname + '/../src/nome.coffee';
+var target     = __dirname + '/../lib/nome';
+var pkg        = require('../package.json');
 
 function minify(source) {
   var opts = { fromString: true, mangle: {
@@ -19,29 +21,43 @@ for (var i = 0, ii = bannerLines.length; i < ii; i++) {
   bannerLines[i] = "* " + bannerLines[i]
 };
 bannerLines.unshift("/*");
-bannerLines.push("*/", "");
+bannerLines.push("* ", "* Version: "+pkg['version'], "*/", "");
 banner = bannerLines.join("\n");
 
+var writeOut = function (suffix, content, cb) {
+  var fileName = path.resolve(target + suffix);
+  fs.writeFile(fileName, content, function(err) {
+    if (err) {
+      console.log("Error while writing to: ", fileName);
+      console.error(err.stack || err);
+    }
+    else {
+      console.log('Written file '+fileName);
+    }
+    cb && cb();
+  });
+}
+
 var coffee = require('coffee-script');
-var compiled = coffee.compile(fs.readFileSync(__dirname + '/../src/nome.coffee').toString(), {
+var compiled = coffee.compile(fs.readFileSync(src).toString(), {
   bare: true
 });
+writeOut('.js', banner + compiled, function() {
 
-var minified = minify(compiled);
+  var bundleOptions = {
+    entries: target + '.js',
+    standalone: 'nome',
+  };
 
-fs.writeFileSync(__dirname + '/../lib/nome.js', banner + compiled);
-fs.writeFileSync(__dirname + '/../lib/nome.min.js', banner + minified);
-
-var bundleOptions = {
-  entries: __dirname + '/../lib/nome.js',
-  standalone: 'nome',
-};
-
-browserify(bundleOptions).bundle(function(err, buf) {
-  if (err) {
-    return console.error(err);
-  }
-  var out = buf.toString();
-  fs.writeFileSync(__dirname + '/../lib/nome-browser.js', out);
-  fs.writeFileSync(__dirname + '/../lib/nome-browser.min.js', banner + minify(out));
+  browserify(bundleOptions).bundle(function(err, buf) {
+    if (err) {
+      console.log("Error during bundling");
+      return console.error(err.stack || err);
+    }
+    var out = buf.toString();
+    writeOut('-browser.js', out);
+    writeOut('-browser.min.js', banner + minify(out));
+  });
 });
+
+writeOut('.min.js', banner + minify(compiled));
