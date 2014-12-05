@@ -72,10 +72,16 @@ describe 'NoMe', ->
       @nome(arg1 = "foo", arg2 = false, arg3 = 10)
       expect(@spy).to.have.been.calledWith(arg1, arg2, arg3)
 
-    it 'with correct context', ->
+    it 'with context of source object', ->
       ctx = nome: @nome
       ctx.nome(arg = "foo")
       expect(@spy).to.have.been.calledOnce.calledOn(ctx).calledWith(arg)
+
+    it 'with specified context', ->
+      ctx = {}
+      @nome.notify spy = sinon.spy(), ctx
+      @nome(arg = "foo")
+      expect(spy).to.have.been.calledOnce.calledOn(ctx).calledWith(arg)
 
     it 'stops invoking when removed with denotify()', ->
       @nome.denotify @id

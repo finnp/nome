@@ -1,7 +1,7 @@
 {
   "name": "nome",
   "description": "Lightweight module to notify when method is called.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "keywords": [
     "notify",
@@ -27,15 +27,15 @@
   "devDependencies": {
     "coffee-script": "^1.8.0",
     "chai": "^1.9.1",
-    "mocha": "^1.21.3",
+    "mocha": "^2.0.1",
     "sinon-chai": "^2.5.0",
     "sinon": "^1.10.3",
     "uglify-js": "^2.4.15",
-    "browserify": "^5.11.0"
+    "browserify": "^7.0.0"
   },
   "dependencies": {
     "lill": "^0.3.2",
     "isfunction": "^0.0.6",
-    "fast.js": "^0.0.3"
+    "fast.js": "^0.1.1"
   }
 }
