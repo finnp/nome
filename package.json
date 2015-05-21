@@ -25,17 +25,17 @@
     "prepublish": "node bin/build.js"
   },
   "devDependencies": {
-    "coffee-script": "^1.8.0",
-    "chai": "^1.9.1",
-    "mocha": "^2.0.1",
-    "sinon-chai": "^2.5.0",
-    "sinon": "^1.10.3",
-    "uglify-js": "^2.4.15",
-    "browserify": "^7.0.0"
+    "browserify": "^10.2.1",
+    "chai": "^2.3.0",
+    "coffee-script": "^1.9.2",
+    "mocha": "^2.2.5",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0",
+    "uglify-js": "^2.4.23"
   },
   "dependencies": {
-    "lill": "^0.3.2",
-    "isfunction": "^0.0.6",
-    "fast.js": "^0.1.1"
+    "fast.js": "^0.1.1",
+    "isfunction": "0.0.6",
+    "lill": "^0.4.1"
   }
 }
