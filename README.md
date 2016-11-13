@@ -4,33 +4,20 @@ Have you ever wanted to be notified when some function is invoked? NoMe is at yo
 
 [![Build Status](https://travis-ci.org/BlackDice/nome.svg)](https://travis-ci.org/BlackDice/nome)[![Dependencies status](https://david-dm.org/BlackDice/nome/status.svg)](https://david-dm.org/BlackDice/nome#info=dependencies)[![devDependency Status](https://david-dm.org/BlackDice/nome/dev-status.svg)](https://david-dm.org/BlackDice/nome#info=devDependencies)
 
-[![NPM](https://nodei.co/npm/nome.png)](https://nodei.co/npm/nome/)
-
 ## Installation
 
-To install for use in NodeJS, simply run
-
-	npm install -S nome
-
-There is also Bower package available for use in browser.
-
-	bower install -S nome
-
-The `lib` folder contains various files:
-
- * nome.js - plain JS compiled from source coffee file
- * nome.min.js - same as above just minified
- * nome-browser.js - browserified bundle packed with dependencies
- * nome-browser.min.js - minified version of the above file
+[![NPM](https://nodei.co/npm/nome.png)](https://nodei.co/npm/nome/)
 
 ## Basic usage
 
 Once you have function wrapped by NoMe, you can get notified about its invocation like this.
 
-	wrapped.notify (arg) ->
-		console.log 'wrapped just got called with:', arg
-
-	wrapped 'foo'
+```js
+	wrapped.notify(function(arg) {
+		console.log('wrapped just got called with:', arg)
+	})
+	wrapped('foo')
+```
 
 You can call `notify` method as many times as you want. These will be executed in order they were added. Arguments passed upon invocation and used context is also preserved.
 
@@ -40,8 +27,11 @@ How to actually create the wrapped function? There are two easy ways.
 
 For most of the time you would probably want to wrap existing function or method.
 
-	wrapped = NoMe ->
+```js
+	const wrapped = NoMe(function() {
 		console.log 'actual function has been called'
+	})
+```
 
 **Important**: Wrapped function is called first and then followed by signed up notification functions.
 
@@ -49,13 +39,17 @@ For most of the time you would probably want to wrap existing function or method
 
 If you don't want any actual body for a function, NoMe can be used like this:
 
-	wrapped = NoMe()
+```js
+	const wrapped = NoMe()
+```
 
 ### Specify context
 
 Some of your notifiers might require different context (*this*) than the one used for invocation. You can specify this easily.
 
-	wrapped.notify someHandler, ctx
+```js
+	wrapped.notify(someHandler, ctx)
+```
 
 It will be remembered and every time when this particular notifier is invoked, the specified context will be used.
 
@@ -63,9 +57,11 @@ It will be remembered and every time when this particular notifier is invoked, t
 
 Sometimes you might want to remove your handler and stop being notified about further invocations. It can be done like this.
 
-	nomeNotifier = wrapped.notify someHandler
-	# sometimes later ...
-	wrapped.denotify nomeNotifier
+```js
+	const nomeNotifier = wrapped.notify(someHandler)
+	// sometimes later ...
+	wrapped.denotify(nomeNotifier)
+```
 
 Essentially it means you have keep around value returned from `notify` call and use that to sign-off the notifier.
 
@@ -73,26 +69,34 @@ Essentially it means you have keep around value returned from `notify` call and 
 
 In case you want easily check if the function is actually wrapped by NoMe (eg. for tests), there is small function returning boolean.
 
-	NoMe.is wrapped
+```js
+	NoMe.is(wrapped)
+```
 
 ### Example
 
-	obj = iAmContext: yes
+```js
+	const obj = { iAmContext: yes }
 
 	obj.signal = NoMe()
-	obj.signal.notify ->
-		console.log 'I am the signal always executed in window context'
-	, window
+	
+	obj.signal.notify(() => {
+		console.log('I am the signal always executed in window context')
+	}, window)
 
-	obj.method = NoMe (arg) ->
-		console.log 'Method is called and with context of obj'
-	obj.method.notify (arg) ->
-		console.log 'I am the notifier and I have ', arg
+	obj.method = NoMe((arg) => {
+		console.log('Method is called and with context of obj')
+	})
+
+	obj.method.notify((arg) => {
+		console.log('I am the notifier and I have ', arg)
+	})
 
 	obj.signal()
 	obj.method("foo")
+```
 
-After running this, result is like this:
+After running this, output will be...
 
 	I am the signal always executed in window context
 	Method is called and with context of obj
