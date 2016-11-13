@@ -2,7 +2,7 @@
 
 Have you ever wanted to be notified when some function is invoked? NoMe is at your service.
 
-[![Build Status](https://travis-ci.org/BlackDice/nome.svg)](https://travis-ci.org/BlackDice/nome)[![Dependencies status](https://david-dm.org/BlackDice/nome/status.svg)](https://david-dm.org/BlackDice/nome#info=dependencies)[![devDependency Status](https://david-dm.org/BlackDice/nome/dev-status.svg)](https://david-dm.org/BlackDice/nome#info=devDependencies)
+[![Build Status](https://travis-ci.org/BlackDice/nome.svg)](https://travis-ci.org/BlackDice/nome)![Greenkeeper Badge](https://badges.greenkeeper.io/blackdice/nome.svg)
 
 ## Installation
 
