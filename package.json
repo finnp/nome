@@ -1,7 +1,7 @@
 {
   "name": "nome",
   "description": "Lightweight module to notify when method is called.",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "notify",
